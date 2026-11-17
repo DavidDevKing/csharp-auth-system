@@ -1,0 +1,14 @@
+bin/
+obj/
+Properties/
+
+.vscode/
+appsettings.json
+appsettings.Development.json
+
+
+**/.env.*
+**/.env
+**/database.env
+
+cookies.txt

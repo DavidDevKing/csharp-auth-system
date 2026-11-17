@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:18
+    container_name: auth_db
+    restart: unless-stopped
+    env_file: ./Environment/database.env # Change this if you use a different naming convention
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auth_user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+
+  sys_local:
+    container_name: auth_system_watch
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    restart: unless-stopped
+    ports: 
+      - "4000:5227"
+    volumes:
+      - .:/app
+      - /app/bin
+      - /app/obj
+    env_file: ./Environment/.env.development # Change this to .env if you're using that instead of .env.development.
+    extra_hosts:
+      - "host_internal_docker:host-gateway"
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+
+volumes:
+  pgdata:
