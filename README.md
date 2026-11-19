@@ -13,7 +13,7 @@ This project simulates an imaginary company's employee onboarding. Ideally the e
 3. Employee activates account through the invitation token sent in the email.
 
 > **Note:** Accounts not activated before their invitation expires (24 hours by default, set by `Invitation.ExpiryMinutes`) are removed by a cleanup job that runs every 6 hours, so an expired account can remain for up to 6 hours before deletion.
-
+>
 > **Note:** The invitation email sent is supposed to have a link to the front-end with the token as a query, but there is no front-end so it's a placeholder link. If you want to test the verify token and accept token endpoints, you'd have to manually copy the token from the link and include it in the request body.
 
 ## Tech Stack
@@ -29,23 +29,14 @@ This project simulates an imaginary company's employee onboarding. Ideally the e
 
 ## Dependencies
 
-- `dotnet-host 10.0+`
-- `dotnet-sdk 10.0+`
-- `dotnet-runtime 10.0+`
 - `docker 29.0+`
 - `docker-compose 5.0+`
 
 ## Getting Started
 
-1. Install the `EF Core` CLI tool.
+1. Configure `.env`/`.env.development` and `database.env` files using `example.env` and `example.database.env` as guides.
 
-   ``` bash
-   dotnet tool install --global dotnet-ef
-   ```
-
-2. Configure `.env`/`.env.development` and `database.env` files using `example.env` and `example.database.env` as guides.
-
-3. Set the env files for the auth system container and the postgres container in the `docker-compose.yml` file.
+2. Set the env files for the auth system container and the postgres container in the `docker-compose.yml` file.
 
    ``` yaml
    db:
@@ -71,31 +62,13 @@ This project simulates an imaginary company's employee onboarding. Ideally the e
      env_file: ./Environment/.env.development # Change this to .env if you're using that instead of .env.development.
    ```
 
-4. Start the database service *(edit this if you've changed the name of the service)*.
-
-   ``` bash
-   docker compose up -d db
-   ```
-
-5. Install the necessary packages.
-
-   ``` bash
-   dotnet restore
-   ```
-
-6. Apply the database migration.
-
-   ``` bash
-   dotnet ef database update
-   ```
-
-7. Start the docker containers.
+3. Start the docker containers.
 
    ``` bash
    docker compose up --build -d
    ```
 
-8. On first startup, a seeding script creates the initial admin account from the credentials in your `.env` or `.env.development` file. Use the credentials you configured to log in.
+4. On first startup, a seeding script creates the initial admin account from the credentials in your `.env` or `.env.development` file. Use the credentials you configured to log in.
 
 > **Note:** The default system port in the configuration is `4000`. You can always change this in the `docker-compose.yml` file.
 

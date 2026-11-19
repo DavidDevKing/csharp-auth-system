@@ -78,6 +78,9 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
 
     var seedSettings = builder.Configuration.GetSection("DB_SEED").Get<SeedSettings>() ?? throw new Exception("Failed to get seed configuration.");
+
+    context.Database.Migrate();
+
     DbInitializer.Init(context, seedSettings);
 }
 
