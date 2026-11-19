@@ -12,7 +12,7 @@ This project simulates an imaginary company's employee onboarding. Ideally the e
 2. System sends email to Employee.
 3. Employee activates account through the invitation token sent in the email.
 
-> **Note:** Accounts not activated before their invitation expires (24 hours by default, set by `Invitation.ExpiryMinutes`) are removed by a cleanup job that runs every 6 hours, so an expired account can remain for up to 6 hours before deletion.
+> **Note:** Accounts not activated before their invitation expires (24 hours by default, set by `JWT__INVITATION__EXPIRYMINUTES` in the `.env` file) are removed by a cleanup job that runs every 6 hours, so an expired account can remain for up to 6 hours before deletion.
 >
 > **Note:** The invitation email sent is supposed to have a link to the front-end with the token as a query, but there is no front-end so it's a placeholder link. If you want to test the verify token and accept token endpoints, you'd have to manually copy the token from the link and include it in the request body.
 
@@ -143,6 +143,7 @@ DateTime? CreatedAfter;
 ```
 
 > **Note:** Admin endpoints use cookie authentication. Log in once with `-c cookies.txt` to save your session cookies, then pass `-b cookies.txt` on later requests.
+>
 > **Note:** These are all placeholder values. Replace them with the values configured in the `.env` or `.env.development` file.
 
 ## Remarks
