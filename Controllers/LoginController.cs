@@ -8,7 +8,7 @@ public class LoginController(IAuthService authService) : ApiController
 {
     [HttpPost]
     [Route("api/auth/login")]
-    public async Task<IActionResult> Login([FromBody] LoginDTO loginDetails)
+    public async Task<ActionResult> Login([FromBody] LoginDTO loginDetails)
     {
         return HandleResult(await authService.Login(loginDetails));
     }
@@ -18,7 +18,7 @@ public class LoginController(IAuthService authService) : ApiController
     [Authorize]
     [HttpPost]
     [Route("/api/auth/logout")]
-    public async Task<IActionResult> Logout()
+    public async Task<ActionResult> Logout()
     {
         return HandleResult(await authService.Logout());
     }

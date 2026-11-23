@@ -12,32 +12,32 @@ public class UsersController(IUsersService usersService) : ApiController
 {
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetUser(int id)
+    public async Task<ActionResult<UserResponseDTO>> GetUser(int id)
     {
         return HandleResult(await usersService.GetUserById(id));
     }
 
     [HttpGet]
-    public async Task<IActionResult> FindUser([FromQuery] UserQueryDTO query)
+    public async Task<ActionResult<List<UserResponseDTO>>> FindUser([FromQuery] UserQueryDTO query)
     {
         return HandleResult(await usersService.FindUsers(query));
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] UserDTO userData)
+    public async Task<ActionResult<UserResponseDTO>> CreateUser([FromBody] UserDTO userData)
     {
         return HandleResult(await usersService.CreateUser(userData));
     }
 
     [HttpPost]
     [Route("{id:int}/resend-invitation")]
-    public async Task<IActionResult> ResendInvitationEmail(int id)
+    public async Task<ActionResult> ResendInvitationEmail(int id)
     {
         return HandleResult(await usersService.ResendInvitationMail(id));
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteUser(int id)
+    public async Task<ActionResult> DeleteUser(int id)
     {
         return HandleResult(await usersService.DeleteUser(id));
     }

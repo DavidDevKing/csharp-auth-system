@@ -5,7 +5,7 @@ namespace csharp_auth_system.Controllers;
 
 public abstract class ApiController : ControllerBase
 {
-    protected IActionResult HandleResult<T>(ServiceResult<T> result)
+    protected ActionResult<T> HandleResult<T>(ServiceResult<T> result)
     {
         if (result == null) return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Service returned an empty result" });
         if (!result.IsSuccess) return ProcessError(result.StatusCode, result.ErrorMessage);
@@ -21,7 +21,7 @@ public abstract class ApiController : ControllerBase
     }
 
 
-    protected IActionResult HandleResult(ServiceResult result)
+    protected ActionResult HandleResult(ServiceResult result)
     {
         if (result == null) return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Service returned an empty result" });
         if (!result.IsSuccess) return ProcessError(result.StatusCode, result.ErrorMessage);
@@ -30,7 +30,7 @@ public abstract class ApiController : ControllerBase
     }
 
 
-    private IActionResult ProcessError(int statusCode, string? errorMessage)
+    private ActionResult ProcessError(int statusCode, string? errorMessage)
     {
         var errorResponse = new
         {
